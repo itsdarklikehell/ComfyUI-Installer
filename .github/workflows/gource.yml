@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
 
@@ -38,10 +38,31 @@ jobs:
           gource_multi_sampling: true
           gource_seconds_per_day: 0.4
 
+      - name: Install ffmpeg (runner)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+      - name: Upscale + re-encode
+        run: |
+          ffmpeg -y -i ./gource/gource.mp4 \
+            -c:v libx264 -crf 18 -level 4.1 -preset medium -tune film \
+            -filter:v "scale=-1:1080" -sws_flags lanczos \
+            -c:a aac -b:a 192k -ar 48000 \
+            -movflags +faststart \
+            ./gource/gource.mp4
+
+      - name: Upload gource video
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: gource
+          path: ./gource/gource.mp4
+          retention-days: 30
+
       - name: Commit gource video
         run: |
-          git config user.name "Corneel (Hermes agent)"
-          git config user.email "corneel@freedom.nl"
-          git add gource.mp4 || true
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add gource/gource.mp4 || true
           git diff --staged --quiet || git commit -m "ci: update gource visualization (automated)"
           git push
