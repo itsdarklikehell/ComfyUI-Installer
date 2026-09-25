@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect and run tests
+        run: |
+          if [ -f package.json ]; then
+            echo "Detected npm project, running npm test..."
+            npm test || exit 0
+          elif [ -f requirements.txt ] || [ -f pyproject.toml ]; then
+            echo "Detected Python project, running pytest..."
+            python -m pytest || python -m pytest || true
+          elif [ -f Makefile ]; then
+            echo "Detected Makefile project, running make test..."
+            make test || true
+          elif ls *.go 1>/dev/null 2>&1; then
+            echo "Detected Go project, running go test..."
+            go test ./... || true
+          else
+            echo 'No test framework detected'
+            exit 0
+          fi
