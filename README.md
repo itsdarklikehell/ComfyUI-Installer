@@ -15,6 +15,11 @@ _Note:_ This is not the official ComfyUI icon.
 
 ## A Quick, Guided install (i.e where there is no .settings file present in the scripts folder (yet), it should create one) (SHOULD ALSO WORK ON ALL DISTROS)
 
+## Ontwikkeltijdlijn
+
+<video src="https://raw.githubusercontent.com/itsdarklikehell/ComfyUI-Installer/master/gource.mp4" controls width="100%"></video>
+
+
 You will need to have `python`, `python-venv` and `pip` on your system.
 Make sure to install for your GPU Vendor (AMD/NVIDIA):
 ```sh
