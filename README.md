@@ -1,4 +1,10 @@
 # Comfy-Cli, ComfyUI and ComfyUI Manager Installer
+
+[![CI](https://github.com/itsdarklikehell/ComfyUI-Installer/actions/workflows/ci.yml/badge.svg)](https://github.com/itsdarklikehell/ComfyUI-Installer/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/itsdarklikehell/ComfyUI-Installer)](LICENSE)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
+
+
 Origional Author: https://github.com/HAMM3REXTREME/ComfyUI-Installer
 Modified Guided installer.sh by: https://github.com/itsdarklikehell/ComfyUI-Installer
 
